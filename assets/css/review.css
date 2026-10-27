@@ -1,0 +1,115 @@
+/* =====================================================================
+   Review-site styles: the options hub, the style sheet page, and the
+   small "review bar" pinned to the bottom of each option page.
+   Not part of the final product site. Delete with the review pages.
+   ===================================================================== */
+
+/* ---------- Review bar on option pages ---------- */
+.review-bar { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 60; display: flex; align-items: center; gap: 4px; padding: 5px; border: 1px solid var(--line-2); border-radius: 999px; background: rgba(13, 16, 21, .88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 40px rgba(0, 0, 0, .45); font-size: .84rem; white-space: nowrap; }
+.review-bar a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border-radius: 999px; color: var(--muted); text-decoration: none; transition: color .2s, background .2s; }
+.review-bar a:hover { color: var(--text); background: var(--surface-3); }
+.review-bar .rb-label { padding: 0 10px; color: var(--text); font-weight: 500; }
+.review-bar .rb-label b { color: var(--accent); font-weight: 500; }
+.review-bar .rb-sep { width: 1px; height: 18px; background: var(--line-2); }
+@media (max-width: 560px) {
+  .review-bar { bottom: 10px; font-size: .78rem; }
+  .review-bar .rb-hide-sm { display: none; }
+  .review-bar a { padding: 0 10px; }
+}
+@media print { .review-bar { display: none; } }
+
+/* ---------- Shared chrome for hub + style sheet ---------- */
+.rv-header { position: sticky; top: 0; z-index: 50; background: rgba(7, 9, 12, .82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.rv-header .header-inner { height: 64px; }
+.rv-nav { display: flex; align-items: center; gap: 6px; }
+.rv-nav a { color: var(--muted); text-decoration: none; font-size: .95rem; padding: 8px 12px; border-radius: 999px; }
+.rv-nav a:hover { color: var(--text); background: var(--surface-2); }
+.rv-nav a[aria-current="page"] { color: var(--text); background: var(--surface-3); }
+.rv-draft { font-family: var(--mono); font-size: .74rem; letter-spacing: .06em; color: var(--dim); border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 9px; margin-left: 10px; }
+@media (max-width: 640px) { .rv-draft { display: none; } .rv-nav a { padding: 8px 9px; font-size: .9rem; } }
+
+.rv-intro { padding: clamp(56px, 8vw, 96px) 0 clamp(32px, 5vw, 56px); position: relative; overflow: hidden; }
+.rv-intro::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 80% at 80% 0%, rgba(95, 211, 227, .08), transparent 70%); }
+.rv-intro h1 { font-size: clamp(2.2rem, 4.6vw, 3.8rem); max-width: 20ch; }
+.rv-intro .lead { max-width: 66ch; }
+.rv-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; color: var(--dim); font-size: .9rem; }
+.rv-section { padding: clamp(40px, 6vw, 72px) 0; border-top: 1px solid var(--line); }
+.rv-section > .container > h2 { font-size: clamp(1.6rem, 2.8vw, 2.2rem); }
+.rv-sub { color: var(--muted); font-weight: 300; max-width: 70ch; margin-bottom: 28px; }
+.rv-footer { padding: 36px 0 48px; border-top: 1px solid var(--line); color: var(--dim); font-size: .88rem; }
+.rv-footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; }
+.rv-footer p { margin: 0; }
+
+/* ---------- Hub: option cards ---------- */
+.rv-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.rv-opt { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; transition: border-color .3s var(--ease); }
+.rv-opt:hover { border-color: var(--line-2); }
+.rv-opt-shot { display: block; position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.rv-opt-shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 1s var(--ease); }
+.rv-opt-shot:hover img { transform: scale(1.025); }
+.rv-opt-body { padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.rv-kicker { font-family: var(--mono); font-size: .78rem; color: var(--accent); letter-spacing: .06em; }
+.rv-opt-body h3 { font-size: 1.55rem; margin: 0; }
+.rv-opt-body p { color: var(--muted); font-weight: 300; margin: 0; }
+.rv-opt-body ul { margin: 2px 0 8px; padding-left: 18px; color: var(--muted); font-weight: 300; font-size: .95rem; display: grid; gap: 4px; }
+.rv-opt-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+.rv-guide { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; margin-top: 24px; padding: 28px; border: 1px solid var(--line); border-radius: 18px; background: radial-gradient(60% 120% at 100% 50%, rgba(95, 211, 227, .08), transparent 70%), var(--surface); }
+.rv-guide h3 { margin: 0 0 6px; font-size: 1.4rem; }
+.rv-guide p { margin: 0; color: var(--muted); font-weight: 300; }
+@media (max-width: 860px) { .rv-opts, .rv-guide { grid-template-columns: 1fr; } }
+
+/* ---------- Tables ---------- */
+.rv-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
+.rv-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: .94rem; }
+.rv-table th, .rv-table td { text-align: left; vertical-align: top; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.rv-table tr:last-child td { border-bottom: 0; }
+.rv-table thead th { font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); background: var(--surface); }
+.rv-table td { color: var(--muted); font-weight: 300; }
+.rv-table td:first-child, .rv-table td b { color: var(--text); font-weight: 500; }
+.rv-table td small { display: block; font-family: var(--mono); font-size: .74rem; color: var(--dim); font-weight: 400; margin-top: 2px; }
+
+.rv-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.rv-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 26px 28px; }
+.rv-card h3 { font-size: 1.2rem; margin-bottom: 14px; }
+.rv-card ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--muted); font-weight: 300; }
+.rv-card ul b { color: var(--text); font-weight: 500; }
+.rv-card > p { color: var(--muted); font-weight: 300; }
+@media (max-width: 860px) { .rv-cols { grid-template-columns: 1fr; } }
+
+/* ---------- Style sheet page ---------- */
+.sg-toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.sg-toc a { font-size: .9rem; color: var(--muted); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 14px; }
+.sg-toc a:hover { color: var(--text); border-color: var(--accent-line); background: var(--accent-soft); }
+.sg-specimen { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 24px; }
+.sg-aa { display: flex; align-items: flex-end; gap: 22px; margin-bottom: 18px; }
+.sg-aa span { font-size: clamp(4.5rem, 9vw, 7rem); line-height: .85; font-weight: 500; }
+.sg-aa p { margin: 0; color: var(--muted); font-weight: 300; }
+.sg-aa b { display: block; color: var(--text); font-size: 1.4rem; font-weight: 500; margin-bottom: 4px; }
+.sg-weights { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 18px; font-size: 1.1rem; }
+.sg-weights span:nth-child(1) { font-weight: 300; } .sg-weights span:nth-child(2) { font-weight: 400; } .sg-weights span:nth-child(3) { font-weight: 500; } .sg-weights span:nth-child(4) { font-weight: 600; } .sg-weights span:nth-child(5) { font-weight: 700; }
+.sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.sg-swatch { display: flex; flex-direction: column; gap: 5px; font-size: .86rem; }
+.sg-chip { height: 76px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .08); margin-bottom: 6px; }
+.sg-swatch code { font-family: var(--mono); font-size: .8rem; color: var(--text); }
+.sg-swatch span { color: var(--muted); font-weight: 300; line-height: 1.35; }
+.sg-swatch small { font-family: var(--mono); font-size: .74rem; color: var(--dim); }
+.sg-group-title { font-size: 1rem; font-weight: 500; color: var(--muted); margin: 32px 0 14px; }
+.sg-group-title:first-child { margin-top: 0; }
+.sg-contrast { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.sg-contrast span { font-size: .84rem; border: 1px solid var(--line-2); border-radius: 999px; padding: 5px 12px; color: var(--muted); }
+.sg-contrast b { color: var(--text); font-weight: 500; }
+.sg-comp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.sg-demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 22px; border: 1px dashed var(--line-2); border-radius: 12px; margin-bottom: 18px; background: var(--bg); }
+.sg-kv { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 8px 14px; margin: 0; font-size: .92rem; }
+.sg-kv dt { font-family: var(--mono); font-size: .76rem; color: var(--dim); padding-top: 3px; }
+.sg-kv dd { margin: 0; color: var(--muted); font-weight: 300; }
+.sg-viewer { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 24px; align-items: start; }
+.sg-viewer figure { margin: 0; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: radial-gradient(60% 60% at 50% 55%, rgba(95, 211, 227, .10), transparent 70%), var(--surface); }
+.sg-viewer figcaption { padding: 12px 18px; color: var(--dim); font-size: .86rem; border-top: 1px solid var(--line); }
+.sg-feature-demo { max-width: 360px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+@media (max-width: 980px) { .sg-comp { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .sg-specimen, .sg-viewer { grid-template-columns: 1fr; } }
+
+/* The review bar stays out of the way of the hero: it appears once you scroll past it. */
+.review-bar { transition: opacity .35s var(--ease), transform .35s var(--ease); }
+.js .review-bar:not(.is-shown) { opacity: 0; pointer-events: none; transform: translate(-50%, 16px); }

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>CT1 Site Review | Four Layout Options</title>
+  <meta name="description" content="Internal review site for the ClinTrainers CT1 product page: four layout options and the shared style sheet.">
+  <meta name="theme-color" content="#07090C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nevo-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/review.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="rv-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="CT1 site review home">
+        <span class="brand-name">ClinTrainers</span><span class="brand-product">CT1</span><span class="rv-draft">Design review</span>
+      </a>
+      <nav class="rv-nav" aria-label="Review">
+        <a href="index.html" aria-current="page">Options</a>
+        <a href="style-guide.html">Style sheet</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="rv-intro">
+      <div class="container">
+        <p class="eyebrow">Internal review · Draft v0.5</p>
+        <h1>CT1 product site: four layout options.</h1>
+        <p class="lead">One single-page site for the CT1 cricothyrotomy &amp; tracheostomy task trainer, built four ways. Every option uses the same copy, specs, CAD renders, live 3D model, colors and type. Only the layout and motion change. Open each one on a computer and on a phone, then pick a direction.</p>
+        <div class="rv-meta"><span>Prepared for Rodney Sagmit &amp; Marco Castelo</span><span>October 2026</span><span>Not the public site</span></div>
+      </div>
+    </section>
+
+    <section class="rv-section" id="options" aria-labelledby="options-title">
+      <div class="container">
+        <h2 id="options-title">The options</h2>
+        <p class="rv-sub">Each page has a bar at the bottom for moving between options and getting back here.</p>
+
+        <div class="rv-opts">
+          <article class="rv-opt">
+            <a class="rv-opt-shot" href="option-1-split.html" tabindex="-1" aria-hidden="true"><img src="assets/img/options/option-1.webp" width="960" height="600" alt=""></a>
+            <div class="rv-opt-body">
+              <span class="rv-kicker">Option 1</span>
+              <h3>Split</h3>
+              <p>Headline and CTAs on the left, 3D model on the right. The most familiar product-page pattern.</p>
+              <ul>
+                <li>Overview beside a side render; six feature cards</li>
+                <li>Two application cards; annotated exploded view plus thumbnails</li>
+                <li>Best balance of copy and product</li>
+              </ul>
+              <div class="rv-opt-actions"><a class="btn btn-primary btn-sm" href="option-1-split.html">Open Option 1 <span class="arrow" aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+
+          <article class="rv-opt">
+            <a class="rv-opt-shot" href="option-2-stage.html" tabindex="-1" aria-hidden="true"><img src="assets/img/options/option-2.webp" width="960" height="600" alt=""></a>
+            <div class="rv-opt-body">
+              <span class="rv-kicker">Option 2</span>
+              <h3>Centered stage</h3>
+              <p>Centered headline above a wide 3D stage, followed by a three-fact strip. Calm and symmetrical.</p>
+              <ul>
+                <li>Overview: heading and lead side by side over a wide render</li>
+                <li>Centered section titles; FAQ beside a pinned title</li>
+                <li>Reads like a launch page</li>
+              </ul>
+              <div class="rv-opt-actions"><a class="btn btn-primary btn-sm" href="option-2-stage.html">Open Option 2 <span class="arrow" aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+
+          <article class="rv-opt">
+            <a class="rv-opt-shot" href="option-3-chapters.html" tabindex="-1" aria-hidden="true"><img src="assets/img/options/option-3.webp" width="960" height="600" alt=""></a>
+            <div class="rv-opt-body">
+              <span class="rv-kicker">Option 3</span>
+              <h3>Chapters</h3>
+              <p>Model left, copy right. Overview and features become numbered chapters beside an image that changes as you scroll.</p>
+              <ul>
+                <li>Procedures in tabs: Cricothyrotomy / Tracheostomy</li>
+                <li>On phones, each chapter shows its own image</li>
+                <li>Most guided, story-like read</li>
+              </ul>
+              <div class="rv-opt-actions"><a class="btn btn-primary btn-sm" href="option-3-chapters.html">Open Option 3 <span class="arrow" aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+
+          <article class="rv-opt">
+            <a class="rv-opt-shot" href="option-4-immersive.html" tabindex="-1" aria-hidden="true"><img src="assets/img/options/option-4.webp" width="960" height="600" alt=""></a>
+            <div class="rv-opt-body">
+              <span class="rv-kicker">Option 4</span>
+              <h3>Immersive</h3>
+              <p>The 3D model fills the first screen behind the headline. Full-width image bands and editorial feature rows below.</p>
+              <ul>
+                <li>Big centered overview statement and full-width render</li>
+                <li>Applications in alternating rows; mosaic gallery</li>
+                <li>Most cinematic first impression</li>
+              </ul>
+              <div class="rv-opt-actions"><a class="btn btn-primary btn-sm" href="option-4-immersive.html">Open Option 4 <span class="arrow" aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="rv-guide">
+          <div>
+            <h3>Style sheet</h3>
+            <p>Typography, color tokens, components, the 3D viewer, layout and content rules shared by all four options.</p>
+          </div>
+          <a class="btn btn-ghost" href="style-guide.html">Open the style sheet <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rv-section" id="compare" aria-labelledby="compare-title">
+      <div class="container">
+        <h2 id="compare-title">Side by side</h2>
+        <p class="rv-sub">What changes between the options. Everything not listed here is identical.</p>
+        <div class="rv-table-wrap" tabindex="0" role="region" aria-labelledby="compare-title">
+          <table class="rv-table">
+            <thead><tr><th scope="col">Option</th><th scope="col">Hero</th><th scope="col">Overview &amp; features</th><th scope="col">Applications</th><th scope="col">Gallery, FAQ, CTA</th><th scope="col">Feel</th></tr></thead>
+            <tbody>
+              <tr><td>1 · Split<small>option-1-split.html</small></td><td>Copy left, 3D model right in a 4:3 stage</td><td>Text beside a side render; six feature cards</td><td>Two cards side by side</td><td>Exploded view + 4 thumbnails · FAQ list · CTA panel</td><td>Familiar; best copy/product balance</td></tr>
+              <tr><td>2 · Centered stage<small>option-2-stage.html</small></td><td>Centered copy above a wide 5:2 3D stage; three-fact strip</td><td>Heading and lead side by side over a wide render; pillars in a row</td><td>Two cards side by side</td><td>Same gallery · FAQ beside a pinned title · centered CTA</td><td>Calm, symmetrical, launch page</td></tr>
+              <tr><td>3 · Chapters<small>option-3-chapters.html</small></td><td>3D model left, copy right</td><td>Seven numbered chapters beside a pinned image that changes per chapter</td><td>Tabs: Cricothyrotomy / Tracheostomy</td><td>Same gallery · FAQ list · CTA panel</td><td>Guided, story-like</td></tr>
+              <tr><td>4 · Immersive<small>option-4-immersive.html</small></td><td>3D model fills the first screen; copy lower-left over a fade</td><td>Big centered statement and full-width render; features as editorial rows</td><td>Full-width rows, image alternating sides</td><td>Mosaic gallery · FAQ list · full-width CTA band</td><td>Most cinematic</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="rv-section" aria-labelledby="notes-title">
+      <div class="container">
+        <h2 id="notes-title" class="sr-only">Review notes</h2>
+        <div class="rv-cols">
+          <div class="rv-card">
+            <h3>Shared by all four</h3>
+            <ul>
+              <li><b>Same content:</b> hero, overview, features, cricothyrotomy and tracheostomy applications, gallery, specs, what's included, FAQ, demo CTA.</li>
+              <li><b>Live 3D model</b> from the CAD files, with a still image while it loads. Drag or use arrow keys; Pause and Reset are always visible.</li>
+              <li><b>"Request a Demo"</b> opens a pre-filled email to inquiry@clintrainers.com.</li>
+              <li><b>No pricing, dates, certifications, testimonials or outcome claims.</b> Unconfirmed details appear as dashed italic placeholders.</li>
+              <li><b>Reduced motion</b> turns off auto-rotation, reveals and background animation.</li>
+            </ul>
+          </div>
+          <div class="rv-card">
+            <h3>What to look at</h3>
+            <ul>
+              <li>Which hero gives the best first impression of the trainer?</li>
+              <li>Which layout makes the features and specs easiest to scan?</li>
+              <li>How does each feel on a phone?</li>
+              <li>Is the motion restrained enough?</li>
+              <li>Any copy or spec corrections. They apply to every option.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rv-footer">
+    <div class="container">
+      <p>ClinTrainers · a ClinCatalyst company · Internal design review</p>
+      <p>CAD renders and prototype details. Colors and finishes are illustrative.</p>
+    </div>
+  </footer>
+</body>
+</html>

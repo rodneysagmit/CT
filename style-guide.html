@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>CT1 Site Review | Style Sheet</title>
+  <meta name="description" content="Typography, color tokens, components and content rules for the ClinTrainers CT1 product site.">
+  <meta name="theme-color" content="#07090C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nevo-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/review.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="rv-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="CT1 site review home">
+        <span class="brand-name">ClinTrainers</span><span class="brand-product">CT1</span><span class="rv-draft">Design review</span>
+      </a>
+      <nav class="rv-nav" aria-label="Review">
+        <a href="index.html">Options</a>
+        <a href="style-guide.html" aria-current="page">Style sheet</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="rv-intro">
+      <div class="container">
+        <p class="eyebrow">Style sheet · v0.5</p>
+        <h1>Dark, cinematic, restrained.</h1>
+        <p class="lead">All four options share one stylesheet and one typeface: near-black backgrounds, charcoal surfaces and a restrained teal/ice accent. Every value here is a CSS variable in <code>assets/css/site.css</code>, so a change there updates the whole site. The components on this page are the real ones, not pictures.</p>
+        <nav class="sg-toc" aria-label="On this page">
+          <a href="#type">Typography</a><a href="#color">Color</a><a href="#components">Components</a><a href="#viewer">3D viewer</a><a href="#motion">Motion</a><a href="#layout">Layout</a><a href="#content">Content rules</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="rv-section" id="type" aria-labelledby="type-title">
+      <div class="container">
+        <p class="eyebrow">Typography</p>
+        <h2 id="type-title">One family: Nevo.</h2>
+        <div class="sg-specimen">
+          <div class="rv-card">
+            <div class="sg-aa"><span aria-hidden="true">Aa</span><p><b>Nevo</b>Geometric sans with a technical edge. Headings 600, body 300–400.</p></div>
+            <p style="font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:600;letter-spacing:-.03em;line-height:1.08;margin-bottom:14px">Purpose-built for hands-on airway simulation.</p>
+            <p class="lead" style="margin:0">CT1 pairs a reusable base with drop-in procedure cartridges, so simulation programs can reset quickly between learners.</p>
+            <div class="sg-weights"><span>Light 300</span><span>Regular 400</span><span>Medium 500</span><span>Semibold 600</span><span>Bold 700</span></div>
+          </div>
+          <div class="rv-card">
+            <h3>Digits come from Outfit</h3>
+            <p>Nevo's "1" reads as a capital "I", so "CT1" looked like "CTI". Digits 0–9 load from <b style="color:var(--text);font-weight:500">Outfit</b> (free, SIL Open Font License) inside the same family. It happens automatically.</p>
+            <p style="font-size:1.3rem;color:var(--text)">CT1 · 109 × 128 mm · 01 02 03</p>
+            <h3 style="margin-top:22px">License check</h3>
+            <p style="margin:0">Nevo is a commercial typeface (© 2014 Stew Deane / Meat Studio). Confirm the license covers web embedding before launch.</p>
+          </div>
+        </div>
+
+        <h3 class="sg-group-title">Type scale</h3>
+        <div class="rv-table-wrap" tabindex="0" role="region" aria-label="Type scale">
+          <table class="rv-table">
+            <thead><tr><th scope="col">Style</th><th scope="col">Sample</th><th scope="col">Size</th><th scope="col">Weight · spacing</th><th scope="col">Color</th></tr></thead>
+            <tbody>
+              <tr><td>H1 · hero</td><td><span style="font-size:2rem;font-weight:600;letter-spacing:-.03em;color:var(--text)">Airway simulation</span></td><td>38–64 px</td><td>600 · −0.03em · line 1.08</td><td>--text</td></tr>
+              <tr><td>H2 · section</td><td><span style="font-size:1.6rem;font-weight:600;letter-spacing:-.02em;color:var(--text)">The details.</span></td><td>30–48 px</td><td>600 · −0.02em</td><td>--text</td></tr>
+              <tr><td>H3 · card</td><td><span style="font-size:1.22rem;font-weight:600;color:var(--text)">Simple setup</span></td><td>19.5 px</td><td>600 · −0.01em</td><td>--text</td></tr>
+              <tr><td>Eyebrow</td><td><span class="eyebrow" style="margin:0">Overview</span></td><td>12.5 px</td><td>500 · caps · +0.18em</td><td>--accent</td></tr>
+              <tr><td>Lead</td><td><span style="font-size:1.15rem;font-weight:300">A focused trainer.</span></td><td>17–19.5 px</td><td>300 · line 1.6</td><td>--muted</td></tr>
+              <tr><td>Body</td><td><span style="font-weight:300">Place on a flat surface.</span></td><td>17 px</td><td>300–400 · line 1.6</td><td>--muted / --text</td></tr>
+              <tr><td>Fine print</td><td><span style="font-size:.86rem;color:var(--dim)">Colors are illustrative.</span></td><td>13–14.5 px</td><td>400</td><td>--dim</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR -->
+    <section class="rv-section" id="color" aria-labelledby="color-title">
+      <div class="container">
+        <p class="eyebrow">Color</p>
+        <h2 id="color-title">Near-black, charcoal, teal.</h2>
+        <p class="rv-sub">Tokens live in <code>:root</code> at the top of site.css.</p>
+
+        <h3 class="sg-group-title">Surfaces &amp; lines</h3>
+        <div class="sg-swatches">
+          <div class="sg-swatch"><div class="sg-chip" style="background:#07090C"></div><code>#07090C</code><span>Page background</span><small>--bg</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#0A0D11"></div><code>#0A0D11</code><span>Alternate bands</span><small>--bg-2</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#0D1015"></div><code>#0D1015</code><span>Panels, cards</span><small>--surface</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#12161C"></div><code>#12161C</code><span>Raised cards</span><small>--surface-2</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#181D25"></div><code>#181D25</code><span>Hover, raised</span><small>--surface-3</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#1F252E"></div><code>#1F252E</code><span>Hairlines</span><small>--line</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#2A323D"></div><code>#2A323D</code><span>Borders, buttons</span><small>--line-2</small></div>
+        </div>
+
+        <h3 class="sg-group-title">Text &amp; accent</h3>
+        <div class="sg-swatches">
+          <div class="sg-swatch"><div class="sg-chip" style="background:#EAEFF4"></div><code>#EAEFF4</code><span>Headings, body</span><small>--text</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#9BA6B2"></div><code>#9BA6B2</code><span>Secondary text</span><small>--muted</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#7D8894"></div><code>#7D8894</code><span>Fine print, TBD</span><small>--dim</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#5FD3E3"></div><code>#5FD3E3</code><span>Buttons, links, eyebrows</span><small>--accent</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#B8EEF5"></div><code>#B8EEF5</code><span>Button hover, highlights</span><small>--accent-ice</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#04161B"></div><code>#04161B</code><span>Text on accent</span><small>--accent-ink</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:rgba(95,211,227,.10)"></div><code>#5FD3E3 · 10%</code><span>Hover halo, glows</span><small>--accent-soft</small></div>
+        </div>
+
+        <h3 class="sg-group-title">Model colors (renders and 3D)</h3>
+        <div class="sg-swatches">
+          <div class="sg-swatch"><div class="sg-chip" style="background:#161616"></div><code>#161616</code><span>Printed parts (black PLA)</span><small>base, cartridge</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#0B0B0C"></div><code>#0B0B0C</code><span>Rubber pad</span><small>pad</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#DFE8EE"></div><code>#DFE8EE</code><span>Airway insert</span><small>airway</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#9FE8F5"></div><code>#9FE8F5</code><span>Rim light</span><small>viewer</small></div>
+          <div class="sg-swatch"><div class="sg-chip" style="background:#BFD8FF"></div><code>#BFD8FF</code><span>Second rim light</span><small>viewer</small></div>
+        </div>
+
+        <div class="sg-contrast" aria-label="Contrast checks">
+          <span>Text on bg <b>17.2:1</b></span><span>Muted on bg <b>8.1:1</b></span><span>Dim on bg <b>5.5:1</b></span><span>Accent-ink on accent <b>10.5:1</b></span><span>Never put white text on the accent</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENTS -->
+    <section class="rv-section" id="components" aria-labelledby="comp-title">
+      <div class="container">
+        <p class="eyebrow">Components</p>
+        <h2 id="comp-title">Buttons, labels, cards.</h2>
+        <div class="sg-comp">
+          <div class="rv-card">
+            <h3>Buttons</h3>
+            <div class="sg-demo">
+              <a class="btn btn-primary" href="#components">Request a Demo</a>
+              <a class="btn btn-ghost" href="#components">Explore the Trainer <span class="arrow" aria-hidden="true">→</span></a>
+              <button class="icon-btn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M11 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Pause rotation</span></button>
+            </div>
+            <dl class="sg-kv">
+              <dt>Shape</dt><dd>Pill. 14 × 22 px padding; small 10 × 16 px.</dd>
+              <dt>Primary</dt><dd>Accent fill, accent-ink text. Hover turns ice with a 6 px teal halo.</dd>
+              <dt>Ghost</dt><dd>Line-2 border, light text. Hover tints teal.</dd>
+              <dt>Icon button</dt><dd>40 px tall. Viewer controls and toggles.</dd>
+            </dl>
+          </div>
+          <div class="rv-card">
+            <h3>Labels &amp; status</h3>
+            <div class="sg-demo">
+              <span class="eyebrow" style="margin:0">Overview</span>
+              <span class="brand-product">CT1</span>
+              <span style="display:inline-block;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line-2);border-radius:999px;padding:3px 9px">Prototype</span>
+              <span style="color:var(--muted)">Weight: <span class="tbd">To be confirmed</span></span>
+            </div>
+            <dl class="sg-kv">
+              <dt>Eyebrow</dt><dd>Section label above every H2, with a 22 px rule.</dd>
+              <dt>Status pill</dt><dd>Marks prototype or in-development features.</dd>
+              <dt>TBD text</dt><dd>Dim italic, dashed underline. Search the HTML for <code>class="tbd"</code>.</dd>
+            </dl>
+          </div>
+          <div class="rv-card">
+            <h3>Cards &amp; lists</h3>
+            <div class="sg-demo" style="display:block">
+              <article class="feature sg-feature-demo">
+                <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <h4 style="font-size:1.22rem;margin-bottom:10px">Simple setup</h4>
+                <p>No power, pumps, tubing or tools.</p>
+              </article>
+              <ul class="ticks"><li>Locating tracheal rings by touch</li></ul>
+            </div>
+            <dl class="sg-kv">
+              <dt>Corners</dt><dd>14 px cards · 18 px panels · 22–24 px stage and CTA.</dd>
+              <dt>Hover</dt><dd>Card lightens; a teal hairline fades in on top.</dd>
+              <dt>Ticks</dt><dd>Small rotated accent square before each item.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEWER -->
+    <section class="rv-section" id="viewer" aria-labelledby="viewer-title">
+      <div class="container">
+        <p class="eyebrow">3D viewer</p>
+        <h2 id="viewer-title">The hero centerpiece.</h2>
+        <div class="sg-viewer">
+          <figure>
+            <img src="assets/img/ct1-hero-900.webp" width="900" height="675" loading="lazy" alt="CT1 render: black arched base with a cartridge seated and a clintrainers.com nameplate.">
+            <figcaption>The still image (poster) rendered from the CAD model. It shows while the 3D loads and on browsers without 3D.</figcaption>
+          </figure>
+          <div class="rv-card">
+            <dl class="sg-kv">
+              <dt>Model</dt><dd>Real CAD assembly: base, rubber pad, cartridge, cover, airway insert, nameplate. The Base Lid is not shown. Desktop file about 640 KB; phones get a 420 KB version.</dd>
+              <dt>Look</dt><dd>Soft studio lighting, teal and ice rim lights, soft floor shadow, transparent over the hero glow.</dd>
+              <dt>Motion</dt><dd>Slow auto-rotation. On first load the cartridge settles into the base.</dd>
+              <dt>Controls</dt><dd>Drag or arrow keys (Shift for bigger steps), Pause/Play, Reset. No zoom, so the page still scrolls.</dd>
+              <dt>Framing</dt><dd>Same camera as the still image, so the swap is seamless. Each option sets distance and offset in its HTML (<code>data-cam-dist</code>, <code>data-view-shift</code>).</dd>
+              <dt>Fallbacks</dt><dd>Still image without 3D support. A labeled placeholder box if no model is set. No auto-rotation with reduced motion.</dd>
+              <dt>Swapping</dt><dd>Export GLB, compress with gltfpack, set the path in <code>assets/js/config.js</code>.</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTION -->
+    <section class="rv-section" id="motion" aria-labelledby="motion-title">
+      <div class="container">
+        <p class="eyebrow">Motion</p>
+        <h2 id="motion-title">Subtle on purpose.</h2>
+        <div class="rv-cols">
+          <div class="rv-card">
+            <h3>What moves</h3>
+            <ul>
+              <li><b>3D model:</b> slow auto-rotation and a one-time cartridge drop-in (1.6 s).</li>
+              <li><b>Hero background:</b> faint grid and slow airflow lines.</li>
+              <li><b>Scroll:</b> sections fade up 18 px as they enter; smooth scroll from links; header turns to dark glass.</li>
+              <li><b>Hover:</b> teal halo on buttons; card borders lift; images scale 3–4%.</li>
+              <li><b>Option 3:</b> chapter image crossfades as each chapter reaches mid-screen.</li>
+            </ul>
+          </div>
+          <div class="rv-card">
+            <h3>Guardrails</h3>
+            <ul>
+              <li>Easing: <code>cubic-bezier(.2, .7, .2, 1)</code>; reveals 0.9 s.</li>
+              <li>The 3D loads after the page and stops when off screen or in a hidden tab.</li>
+              <li>Phones get a lighter model, lower resolution and smaller shadows.</li>
+              <li><b>Reduce motion:</b> no auto-rotation, intro, reveals or airflow lines. Pause shows as already on.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT -->
+    <section class="rv-section" id="layout" aria-labelledby="layout-title">
+      <div class="container">
+        <p class="eyebrow">Layout</p>
+        <h2 id="layout-title">Grid, spacing, breakpoints.</h2>
+        <div class="rv-table-wrap" tabindex="0" role="region" aria-labelledby="layout-title">
+          <table class="rv-table">
+            <thead><tr><th scope="col">Spec</th><th scope="col">All options</th><th scope="col">Differences</th></tr></thead>
+            <tbody>
+              <tr><td>Content width</td><td>1200 px max</td><td>Option 2 stage 1120 px; Option 4 hero and CTA run edge to edge</td></tr>
+              <tr><td>Side margins</td><td>16 px on phones, scaling to 40 px</td><td>—</td></tr>
+              <tr><td>Section spacing</td><td>84–140 px, scaling with screen width</td><td>—</td></tr>
+              <tr><td>Header</td><td>72 px, fixed; dark glass after scrolling</td><td>Option 4: soft dark fade while over the hero</td></tr>
+              <tr><td>Hero</td><td>Up to full screen height</td><td>1: split · 2: centered + 5:2 stage · 3: flipped split · 4: full-screen stage</td></tr>
+              <tr><td>Breakpoints</td><td>980 px hamburger menu · 900 px heroes and splits stack · 620 px single-column cards · 560 px hotspot labels hide</td><td>—</td></tr>
+              <tr><td>Images</td><td>WebP CAD renders on transparent backgrounds, 4:3, in two sizes</td><td>Product photos replace renders later</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="rv-section" id="content" aria-labelledby="content-title">
+      <div class="container">
+        <p class="eyebrow">Content rules</p>
+        <h2 id="content-title">Training equipment, stated plainly.</h2>
+        <div class="rv-cols">
+          <div class="rv-card">
+            <h3>Voice</h3>
+            <ul>
+              <li>Clear, clinical, confident. Short sentences.</li>
+              <li>Present CT1 as simulation training equipment for education only.</li>
+              <li>Specs and features come from the development record and the CAD. Prototype details are labeled.</li>
+              <li>Unconfirmed details stay visible as TBD until verified.</li>
+            </ul>
+          </div>
+          <div class="rv-card">
+            <h3>Never on the site</h3>
+            <ul>
+              <li>Pricing or availability dates (handled during the inquiry).</li>
+              <li>Certifications, endorsements, testimonials or outcome claims.</li>
+              <li>Step-by-step procedure instructions.</li>
+              <li>A stand-in model presented as the real product.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rv-footer">
+    <div class="container">
+      <p>ClinTrainers · a ClinCatalyst company · Internal design review</p>
+      <p><a href="index.html">← Back to the options</a></p>
+    </div>
+  </footer>
+</body>
+</html>
