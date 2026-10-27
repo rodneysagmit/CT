@@ -1,16 +1,9 @@
 /* ClinTrainers CT1 — page behaviors (no dependencies) */
 (function () {
   var cfg = window.CT_CONFIG || {};
+  var inq = cfg.inquiry || {};
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.documentElement.classList.add('js');
-
-  /* ---- Demo links: build the mailto from config ---- */
-  var d = cfg.demo || {};
-  if (d.email) {
-    var href = 'mailto:' + d.email + '?subject=' + encodeURIComponent(d.subject || '') + '&body=' + encodeURIComponent(d.body || '');
-    document.querySelectorAll('[data-demo-link]').forEach(function (a) { a.setAttribute('href', href); });
-    document.querySelectorAll('[data-demo-email]').forEach(function (a) { a.textContent = d.email; a.setAttribute('href', 'mailto:' + d.email); });
-  }
 
   /* ---- Mobile nav ---- */
   var toggle = document.querySelector('.nav-toggle');
@@ -62,6 +55,21 @@
     });
   });
 
+  /* ---- Cartridge library: cards or list (remembered per visitor) ---- */
+  var lib = document.querySelector('[data-lib]');
+  if (lib) {
+    var viewBtns = lib.querySelectorAll('[data-lib-view]');
+    var setLibView = function (v) {
+      lib.classList.toggle('is-list', v === 'list');
+      viewBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lib-view') === v)); });
+      try { localStorage.setItem('ct-lib-view', v); } catch (e) {}
+    };
+    viewBtns.forEach(function (b) { b.addEventListener('click', function () { setLibView(b.getAttribute('data-lib-view')); }); });
+    var saved = null;
+    try { saved = localStorage.getItem('ct-lib-view'); } catch (e) {}
+    if (saved) setLibView(saved);
+  }
+
   /* ---- Gallery lightbox (native <dialog>) ---- */
   var dlg = document.getElementById('lightbox');
   if (dlg && typeof dlg.showModal === 'function') {
@@ -76,51 +84,124 @@
     dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.closest('[data-close]')) dlg.close(); });
   }
 
-  /* ---- Tabs (used by some layouts): [data-tabs] > [role=tab][aria-controls] ---- */
-  document.querySelectorAll('[data-tabs]').forEach(function (wrap) {
-    var tabs = Array.prototype.slice.call(wrap.querySelectorAll('[role="tab"]'));
-    var select = function (t, focus) {
-      tabs.forEach(function (x) {
-        var on = x === t;
-        x.setAttribute('aria-selected', String(on));
-        x.tabIndex = on ? 0 : -1;
-        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-      });
-      if (focus) t.focus();
-    };
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { select(t); });
-      t.addEventListener('keydown', function (e) {
-        var n = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-        if (e.key === 'Home') n = -i; if (e.key === 'End') n = tabs.length - 1 - i;
-        if (n === undefined) return;
-        e.preventDefault(); select(tabs[(i + n + tabs.length) % tabs.length], true);
-      });
-    });
-    // Links like #tracheostomy open the matching tab
-    var fromHash = function () {
-      var id = location.hash.slice(1);
-      tabs.forEach(function (t) { if (t.getAttribute('aria-controls') === id) select(t); });
-    };
-    window.addEventListener('hashchange', fromHash); fromHash();
+  /* ---- Email address shown on the page ---- */
+  document.querySelectorAll('[data-inquiry-email]').forEach(function (a) {
+    if (!inq.email) return;
+    a.textContent = inq.email; a.setAttribute('href', 'mailto:' + inq.email);
   });
 
-  /* ---- Chapters (used by some layouts): sticky image swaps as text chapters scroll ---- */
-  document.querySelectorAll('[data-chapters]').forEach(function (wrap) {
-    var imgs = wrap.querySelectorAll('[data-chapter-img]');
-    var show = function (key) {
-      imgs.forEach(function (im) { im.classList.toggle('is-active', im.getAttribute('data-chapter-img') === key); });
-    };
-    if (!('IntersectionObserver' in window)) return;
-    var co = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        wrap.querySelectorAll('[data-chapter]').forEach(function (c) { c.classList.toggle('is-current', c === en.target); });
-        show(en.target.getAttribute('data-chapter'));
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    wrap.querySelectorAll('[data-chapter]').forEach(function (c) { co.observe(c); });
+  /* ---- Inquiry form (native <dialog>) ---- */
+  var idlg = document.getElementById('inquiry');
+  var form = idlg && idlg.querySelector('form');
+  var done = idlg && idlg.querySelector('[data-inquiry-done]');
+  var note = idlg && idlg.querySelector('[data-form-status]');
+  var sendBtn = form && form.querySelector('[type="submit"]');
+
+  function mailtoFrom(data) {
+    var lines = [
+      'Name: ' + data.name,
+      'Email: ' + data.email,
+      'Phone: ' + (data.phone || '—'),
+      'Organization: ' + data.organization,
+      'Inquiry type: ' + data.topic,
+      '',
+      data.message
+    ];
+    return 'mailto:' + inq.email + '?subject=' + encodeURIComponent((inq.subject || 'CT1 inquiry') + ' — ' + data.topic) + '&body=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  function showError(field, msg) {
+    var box = form.querySelector('[data-error-for="' + field.name + '"]');
+    field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    if (box) box.textContent = msg || '';
+  }
+
+  function messageFor(f) {
+    var v = f.validity;
+    if (v.valueMissing) return {
+      name: 'Please enter your name.', email: 'Please enter your email.', organization: 'Please enter your organization.', message: 'Please tell us what you’d like to know.'
+    }[f.name] || 'This field is required.';
+    if (v.typeMismatch && f.type === 'email') return 'Please enter a valid email, like name@hospital.org.';
+    if (v.patternMismatch && f.type === 'tel') return 'Please enter a valid phone number.';
+    return '';
+  }
+
+  function validate() {
+    var first = null;
+    form.querySelectorAll('input:not([type="radio"]):not([tabindex="-1"]), textarea').forEach(function (f) {
+      var msg = f.checkValidity() ? '' : messageFor(f);
+      showError(f, msg);
+      if (msg && !first) first = f;
+    });
+    if (first) first.focus();
+    return !first;
+  }
+
+  function openDialog(topic) {
+    if (!idlg) return false;
+    if (typeof idlg.showModal !== 'function') return false;
+    form.hidden = false; done.hidden = true; note.textContent = '';
+    if (topic) { var r = form.querySelector('input[name="topic"][value="' + topic + '"]'); if (r) r.checked = true; }
+    idlg.showModal();
+    document.documentElement.classList.add('modal-open');
+    var firstField = form.querySelector('#f-name'); if (firstField) firstField.focus();
+    return true;
+  }
+
+  /* Demo buttons: in 'email' mode they are plain mailto links built from config.js;
+     in 'form' mode they open the inquiry dialog (the mailto href stays as a fallback). */
+  var demoHref = 'mailto:' + inq.email + '?subject=' + encodeURIComponent(inq.subject || 'CT1 demo request') +
+    (inq.body ? '&body=' + encodeURIComponent(inq.body) : '');
+  document.querySelectorAll('[data-inquiry]').forEach(function (b) {
+    if (inq.email) b.setAttribute('href', demoHref);
+    if (inq.mode !== 'form') return;
+    b.addEventListener('click', function (e) {
+      if (openDialog(b.getAttribute('data-inquiry'))) e.preventDefault();
+    });
   });
+
+  if (idlg && form) {
+    idlg.addEventListener('close', function () { document.documentElement.classList.remove('modal-open'); });
+    idlg.addEventListener('click', function (e) { if (e.target === idlg || e.target.closest('[data-close]')) idlg.close(); });
+    form.querySelectorAll('input, textarea').forEach(function (f) {
+      f.addEventListener('blur', function () { if (f.getAttribute('aria-invalid') === 'true' || f.value) showError(f, f.checkValidity() ? '' : messageFor(f)); });
+      f.addEventListener('input', function () { if (f.getAttribute('aria-invalid') === 'true' && f.checkValidity()) showError(f, ''); });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      note.textContent = '';
+      if (!validate()) { note.textContent = 'Please check the highlighted fields.'; return; }
+      if (form.querySelector('[name="_gotcha"]').value) return; // spam trap
+      var fd = new FormData(form);
+      var data = {
+        name: fd.get('name').trim(), email: fd.get('email').trim(), phone: (fd.get('phone') || '').trim(),
+        organization: fd.get('organization').trim(), topic: fd.get('topic') || 'Question', message: fd.get('message').trim()
+      };
+      var finish = function (viaEmail) {
+        form.hidden = true; done.hidden = false; note.textContent = '';
+        done.querySelector('[data-done-text]').textContent = viaEmail
+          ? 'Your email app should open with your message ready to send. If it doesn’t, email us at ' + inq.email + '.'
+          : 'Thanks, ' + data.name.split(' ')[0] + '. We’ve received your message and will follow up at ' + data.email + '.';
+        form.reset();
+        done.querySelector('h2').focus();
+      };
+
+      if (!inq.endpoint) { window.location.href = mailtoFrom(data); finish(true); return; }
+
+      sendBtn.disabled = true; sendBtn.setAttribute('aria-busy', 'true'); note.textContent = 'Sending…';
+      fd.append('_subject', (inq.subject || 'CT1 inquiry') + ' — ' + data.topic);
+      fetch(inq.endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); finish(false); })
+        .catch(function () {
+          note.innerHTML = '';
+          note.append('We couldn’t send that just now. ');
+          var a = document.createElement('a'); a.href = mailtoFrom(data); a.textContent = 'Send it by email instead';
+          note.append(a, '.');
+        })
+        .then(function () { sendBtn.disabled = false; sendBtn.removeAttribute('aria-busy'); });
+    });
+  }
 
   /* ---- Footer year ---- */
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
