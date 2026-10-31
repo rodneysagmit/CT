@@ -120,13 +120,24 @@ Serve over http(s). Opening `index.html` directly shows the still image but not 
 
 Set long cache headers on `assets/` and serve `.glb` as `model/gltf-binary`.
 
+## GitHub
+
+The site is published to the repository **rodneysagmit/CT** (currently public; make it private until the font license and VA ethics items below are cleared). Edit the site here in `site/`. Push only from the GitHub copy at `Documents/GitHub/CT`:
+
+1. From the `Website` folder: `python sync_to_github.py` shows what changed; `python sync_to_github.py --apply` copies it into the GitHub copy.
+2. Review and commit in the GitHub copy (GitHub Desktop or git), then push.
+
+The script never deletes files in the GitHub copy; it lists anything that exists only there so you can remove it on purpose.
+
+**GitHub Pages:** `.github/workflows/pages.yml` publishes only the `public/` folder on every push to `main`, so the site appears at the main address (`rodneysagmit.github.io/CT/`, later clintrainers.com) and the README, tools and project files are never published. One-time setting on GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Every push after that goes live, so hold pushes until the launch items below are cleared or you've decided the draft can be public.
+
 ## Before launch
 
 - [ ] Marco's copy review, including the new headline (Decision Log W12).
 - [ ] Replace every `tbd` placeholder (weight, uses per cartridge, cleaning, storage, included quantities, base storage lid, guide).
 - [ ] Attorney review of the "not intended for clinical or diagnostic use" wording and the "a ClinCatalyst company" footer.
 - [ ] VA ethics guidance in writing before the site goes public.
-- [ ] Confirm the Nevo web-font license (commercial typeface).
+- [ ] Confirm the Nevo web-font license (commercial typeface). The font files are in the public GitHub repository until it is made private.
 - [ ] Confirm clintrainers.com ownership; canonical and share URLs point to www.clintrainers.com.
 - [ ] Connect the inquiry form to Formspree (paste the endpoint into `config.js`) and send a test of each inquiry type.
 - [ ] Marco reviews the inquiry form fields (W27).
