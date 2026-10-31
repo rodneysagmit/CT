@@ -586,6 +586,8 @@ dialog.is-closing::backdrop { animation: fade-out .2s ease forwards; }
   .lib:not(.is-list) .cart-media { flex: 0 0 34%; aspect-ratio: auto; }
   .lib:not(.is-list) .cart-body { padding: 14px 16px; }
   .step { flex-direction: column; }
+  /* Stacked cards: the side-by-side 38% width must not become a height limit, or the image gets cropped */
+  .step figure { flex: none; }
   .feature { padding: 22px; }
   .spec-card { padding: 4px 18px; }
   .spec-table th, .spec-table td { display: block; width: 100%; padding: 0; border: 0; }
