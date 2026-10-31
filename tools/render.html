@@ -1,0 +1,34 @@
+<!doctype html><html><body style="margin:0;background:#0b0d10">
+<script type="importmap">{"imports":{"three":"../node_modules/three/build/three.module.js","three/addons/":"../node_modules/three/examples/jsm/"}}</script>
+<script>if(location.search.includes('alpha=1'))document.body.style.background='transparent';</script><script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+const q=new URLSearchParams(location.search);
+const W=+q.get('w')||1200,H=+q.get('h')||900;
+const r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:q.get('alpha')==='1'});
+r.setSize(W,H); r.toneMapping=THREE.ACESFilmicToneMapping; r.outputColorSpace=THREE.SRGBColorSpace; r.shadowMap.enabled=true; r.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(r.domElement);
+const s=new THREE.Scene(); if(q.get('alpha')!=='1') s.background=new THREE.Color(q.get('bg')||'#0b0d10');
+const pm=new THREE.PMREMGenerator(r); s.environment=pm.fromScene(new RoomEnvironment(),0.04).texture; s.environmentIntensity=+(q.get('env')||0.6);
+const cam=new THREE.PerspectiveCamera(+(q.get('fov')||30),W/H,0.001,10);
+const key=new THREE.DirectionalLight(0xffffff,+(q.get('key')||2.2)); key.position.set(0.25,0.45,0.3); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.camera.left=key.shadow.camera.bottom=-.15;key.shadow.camera.right=key.shadow.camera.top=.15; key.shadow.radius=6; s.add(key);
+const rim=new THREE.DirectionalLight(new THREE.Color(q.get('rimc')||'#9fe8f5'),+(q.get('rim')||1.6)); rim.position.set(-0.3,0.2,-0.3); s.add(rim); const rim2=new THREE.DirectionalLight(new THREE.Color(q.get('rim2c')||'#bfd8ff'),+(q.get('rim2')||0.8)); rim2.position.set(0.35,0.15,-0.25); s.add(rim2); const fill=new THREE.DirectionalLight(0xffffff,+(q.get('fill')||0.4)); fill.position.set(-0.3,0.1,0.35); s.add(fill);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(2,2),new THREE.ShadowMaterial({opacity:+(q.get('sh')||.45)})); floor.rotation.x=-Math.PI/2; floor.receiveShadow=true; s.add(floor);
+new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load('../public/assets/models/'+(q.get('f')||'ct1.glb'),g=>{
+  const m=g.scene; let n=0; m.traverse(o=>{if(o.isMesh){n++;o.castShadow=o.receiveShadow=true; if(q.get('normal')) o.material=new THREE.MeshBasicMaterial({color:0xff0000}); if(q.get('ni')) o.geometry=o.geometry.toNonIndexed(); if(n===1) console.log('geo', o.geometry.attributes.position.count, o.geometry.index&&o.geometry.index.count, Array.from(o.geometry.attributes.position.array.slice(0,6)).join(','), o.visible, JSON.stringify(o.matrixWorld.elements));}}); console.log('meshes',n, JSON.stringify(new THREE.Box3().setFromObject(m)));
+  if(q.get('box')){const bx=new THREE.Mesh(new THREE.BoxGeometry(.05,.05,.05),new THREE.MeshNormalMaterial()); s.add(bx);}
+  const hide=(q.get('hide')||'').split(',').filter(Boolean); if(!q.get('stored')) hide.push('storage_cover'); m.traverse(o=>{if(hide.includes(o.name))o.visible=false;});
+  const ex=+(q.get('explode')||0);
+  if(ex){ const c=m.getObjectByName('cartridge'),cv=m.getObjectByName('cartridge_cover'),aw=m.getObjectByName('airway'); if(c)c.position.y+=ex; if(aw)aw.position.y+=ex*1.0; if(cv)cv.position.y+=ex*1.9; }
+  const lf=+(q.get('lift')||0); if(lf){const cv=m.getObjectByName('cartridge_cover'); if(cv) cv.position.y+=lf;}
+  s.add(m);
+  const az=+(q.get('az')||35)*Math.PI/180, el=+(q.get('el')||25)*Math.PI/180, d=+(q.get('d')||0.42);
+  const t=new THREE.Vector3(+(q.get('tx')||0),+(q.get('ty')||0.03),+(q.get('tz')||0));
+  cam.position.set(t.x+d*Math.cos(el)*Math.sin(az), t.y+d*Math.sin(el), t.z+d*Math.cos(el)*Math.cos(az)); cam.lookAt(t);
+  r.render(s,cam);
+  const pts={}; ['base','pad','cartridge','cartridge_cover','airway','nameplate'].forEach(n=>{const o=m.getObjectByName(n); if(!o||!o.visible) return; const c=new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).project(cam); pts[n]=[+((c.x+1)/2*100).toFixed(1), +((1-c.y)/2*100).toFixed(1)];});
+  console.log('PTS '+JSON.stringify(pts)); document.title='done';
+});
+</script></body></html>

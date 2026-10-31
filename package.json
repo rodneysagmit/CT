@@ -1,0 +1,17 @@
+{
+  "name": "clintrainers-ct1-site",
+  "private": true,
+  "description": "Build tools for the CT1 site. The deployable site is the public/ folder.",
+  "scripts": {
+    "build:viewer": "esbuild public/assets/js/src/viewer.js --bundle --minify --format=iife --target=es2019 --legal-comments=eof --outfile=public/assets/js/viewer.bundle.js",
+    "pack:model": "gltfpack -i tools/ct1-raw.glb -o public/assets/models/ct1.glb -cc -kn -km",
+    "pack:model:mobile": "gltfpack -i tools/ct1-raw.glb -o public/assets/models/ct1-mobile.glb -cc -kn -km -si 0.6",
+    "serve": "npx --yes http-server public -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "gltfpack": "^0.22.0",
+    "playwright": "^1.47.0",
+    "three": "0.169.0"
+  }
+}

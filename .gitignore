@@ -1,0 +1,8 @@
+# Render output (regenerate with tools/render_server.py)
+tools/out/
+# Build tooling
+node_modules/
+tools/ct1-raw.glb
+__pycache__/
+.DS_Store
+Thumbs.db
