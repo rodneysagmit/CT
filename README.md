@@ -1,8 +1,8 @@
-# ClinTrainers CT1 — System Site (v3.4 draft, light theme)
+# ClinTrainers CT1 — System Site (v3.6, Oct 31 2026)
 
-A three-page site for the CT1 system (one reusable base, drop-in skill cartridges), built around an interactive 3D model. Light studio look with defined color roles: navy primary, teal secondary, coral accent for the demo buttons, on cool neutrals, with a charcoal trainer (Decision Log W9–W19; see `../design/DESIGN-DIRECTION.md`). Color comes from tints and solid shapes only: no glowing edges, light halos or neon (W16). The landing page sells the system; the Cric/Trach Starter Kit has its own product page (W15) and the cartridge library has its own page (W14). Headline and calls to action sit beside the model on desktop and stack above it on phones. The dark v2.0 version is archived in `../_archive/2026-10-27_dark-v2.0/`.
+A three-page site for the CT1 system (one reusable base, drop-in skill cartridges), built around an interactive 3D model. Light studio look with defined color roles: navy primary (also the Request a Demo button), teal secondary, coral accent for small marks, on cool neutrals, with a charcoal trainer (Decision Log W9–W33; see `../design/DESIGN-DIRECTION.md`). Color comes from tints, solid shapes and limited liquid glass: no glowing edges, light halos or neon. The landing page sells the system; the Cric/Trach Starter Kit has its own product page (W15) and the cartridge library has its own page (W14). The hero fills one screen at every desktop size; headline and calls to action sit beside the model on desktop and stack above it on phones. Earlier versions are in `../_archive/`.
 
-**Bottom line:** the website is the `public/` folder. Upload it to any static host. Everything else here is optional tooling.
+**Bottom line:** the website is the `public/` folder. It is published to GitHub Pages at https://rodneysagmit.github.io/CT/ (see "GitHub" below). Everything else here is tooling.
 
 ```
 site/
@@ -110,15 +110,11 @@ The PNG lands in `tools/out/`. Useful parameters: `az`, `el`, `d` (camera angle 
 
 **Viewer source.** After editing `assets/js/src/viewer.js`, run `npm install` then `npm run build:viewer`.
 
-## Deployment
+## Previewing locally
 
-Serve over http(s). Opening `index.html` directly shows the still image but not the 3D model. To preview locally: `npm run serve`, or `python -m http.server 8080` inside `public/`.
+Serve over http(s). Opening `index.html` directly shows the still image but not the 3D model. To preview: `python -m http.server 8080` inside `public/`, then open http://localhost:8080.
 
-- **Netlify:** drag the `public` folder into app.netlify.com.
-- **Cloudflare Pages:** Direct Upload of `public/`.
-- **GitHub Pages:** put the contents of `public/` at the repo root and deploy from `main`, `/ (root)`.
-
-Set long cache headers on `assets/` and serve `.glb` as `model/gltf-binary`.
+The live site is hosted on GitHub Pages (below). Any static host also works if that changes: deploy only the `public/` folder, set long cache headers on `assets/` and serve `.glb` as `model/gltf-binary`.
 
 ## GitHub
 
@@ -131,9 +127,26 @@ The script never deletes files in the GitHub copy; it lists anything that exists
 
 **GitHub Pages:** `.github/workflows/pages.yml` publishes only the `public/` folder on every push to `main`, so the site appears at the main address (`rodneysagmit.github.io/CT/`, later clintrainers.com) and the README, tools and project files are never published. One-time setting on GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Every push after that goes live, so hold pushes until the launch items below are cleared or you've decided the draft can be public.
 
+## Launch on clintrainers.com (W34)
+
+The site is built for **www.clintrainers.com**: canonical tags, share links, `sitemap.xml`, `robots.txt` and structured data all use it. Relative links mean the same files work at the github.io address in the meantime.
+
+1. **Cloudflare (Marco's account), DNS for clintrainers.com.** Set each record to **DNS only** (gray cloud) so GitHub can issue the HTTPS certificate:
+   - `www` → CNAME → `rodneysagmit.github.io`
+   - `@` (apex) → A → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - `@` (apex) → AAAA → `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+2. **GitHub, CT repository → Settings → Pages → Custom domain:** `www.clintrainers.com`. Wait for the DNS check, then tick **Enforce HTTPS**. The bare domain then redirects to www automatically.
+3. **Optional but recommended:** verify the domain in GitHub (your profile → Settings → Pages → Add a domain), which adds one TXT record in Cloudflare and stops anyone else claiming it on GitHub Pages.
+4. **Email:** Cloudflare → Email → Email Routing: create `inquiry@clintrainers.com` forwarding to the inbox that should receive inquiries. Then create the Formspree form for that address and put its endpoint in `config.js`.
+5. **Search:** add www.clintrainers.com to Google Search Console and Bing Webmaster Tools, submit `https://www.clintrainers.com/sitemap.xml`, and use Google's Rich Results Test on the landing and Starter Kit pages.
+
+**SEO in the code:** page titles and descriptions target cricothyrotomy / tracheostomy task trainer and modular simulation task trainer searches. Structured data: Organization, WebSite, Product and FAQPage on the landing page (the FAQ entries are generated from the visible FAQ, so update both together), Product and breadcrumbs on the Starter Kit page, breadcrumbs on the cartridges page. No prices anywhere until O3. When a page changes, update its `lastmod` in `sitemap.xml`.
+
+**Privacy notice:** `privacy.html`, linked from every footer and the inquiry form. Plain-language draft for the attorney to review; update its date when it changes.
+
 ## Before launch
 
-- [ ] Marco's copy review, including the new headline (Decision Log W12).
+- [ ] Marco's copy review, including the new headline (Decision Log W12). The Q1 2027 date (W20) is confirmed.
 - [ ] Replace every `tbd` placeholder (weight, uses per cartridge, cleaning, storage, included quantities, base storage lid, guide).
 - [ ] Attorney review of the "not intended for clinical or diagnostic use" wording and the "a ClinCatalyst company" footer.
 - [ ] VA ethics guidance in writing before the site goes public.
@@ -141,5 +154,5 @@ The script never deletes files in the GitHub copy; it lists anything that exists
 - [ ] Confirm clintrainers.com ownership; canonical and share URLs point to www.clintrainers.com.
 - [ ] Connect the inquiry form to Formspree (paste the endpoint into `config.js`) and send a test of each inquiry type.
 - [ ] Marco reviews the inquiry form fields (W27).
-- [ ] Add a short privacy notice or policy page, since the form now collects names, emails and phone numbers.
+- [x] Privacy notice page added (`privacy.html`, W34). Attorney to review.
 - [ ] Add privacy-friendly analytics (e.g., Plausible) if you want to measure demo clicks.

@@ -400,6 +400,12 @@ b, strong { font-weight: 600; }
 .docs li > svg { width: 28px; height: 28px; color: var(--teal); }
 .docs h3 { margin: 0 0 4px; font-size: 1.05rem; }
 .docs p { margin: 0; color: var(--muted); font-size: .94rem; }
+/* Long-form text pages (privacy notice) */
+.prose { max-width: 760px; }
+.prose h1 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); margin-bottom: 12px; }
+.prose h2 { font-size: 1.35rem; margin: 36px 0 10px; }
+.prose p { color: var(--muted); }
+
 /* Landing-page teaser (full library is on cartridges.html) */
 .lib-teaser { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 72px); align-items: end; }
 .lib-teaser .lead { margin: 0; }
